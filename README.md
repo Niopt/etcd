@@ -148,7 +148,8 @@ spec:
 `openssl req -new -key etcd-server.key -subj "/CN=etcd-server" -out etcd-server.csr`
 - подписываем сертификат через CA
 
-```openssl x509 -req -in etcd-server.csr -CA ca.crt -CAkey ca.key -CAcreateserial   -out etcd-server.crt -days 3650   -extensions v3_req -extfile <(echo "
+```
+openssl x509 -req -in etcd-server.csr -CA ca.crt -CAkey ca.key -CAcreateserial   -out etcd-server.crt -days 3650   -extensions v3_req -extfile <(echo "
 [ v3_req ]
 subjectAltName = @alt_names
 [ alt_names ]
@@ -172,7 +173,8 @@ IP.1 = 127.0.0.1 - указыват для каких адресов этот с
 `openssl req -new -key etcd-peer-node1.key -subj "/CN=etcd-peer-node1" -out etcd-peer-node1.csr`
 - подписываем сертификат через CA
 
-```openssl x509 -req -in etcd-peer-node1.csr -CA ca.crt -CAkey ca.key -CAcreateserial \
+```
+openssl x509 -req -in etcd-peer-node1.csr -CA ca.crt -CAkey ca.key -CAcreateserial \
   -out etcd-peer-node1.crt -days 3650 \
   -extensions v3_req -extfile <(echo "
 [ v3_req ]
@@ -192,7 +194,8 @@ IP.3 = 127.0.0.3
 `openssl req -new -key etcd-peer-node2.key -subj "/CN=etcd-peer-node2" -out etcd-peer-node2.csr`
 - подписываем сертификат через CA
 
-```openssl x509 -req -in etcd-peer-node2.csr -CA ca.crt -CAkey ca.key -CAcreateserial \
+```
+openssl x509 -req -in etcd-peer-node2.csr -CA ca.crt -CAkey ca.key -CAcreateserial \
   -out etcd-peer-node2.crt -days 3650 \
   -extensions v3_req -extfile <(echo "
 [ v3_req ]
@@ -211,7 +214,8 @@ IP.3 = 127.0.0.3
 `openssl req -new -key etcd-peer-node3.key -subj "/CN=etcd-peer-node3" -out etcd-peer-node3.csr`
 - подписываем сертификат через CA
 
-```openssl x509 -req -in etcd-peer-node3.csr -CA ca.crt -CAkey ca.key -CAcreateserial \
+```
+openssl x509 -req -in etcd-peer-node3.csr -CA ca.crt -CAkey ca.key -CAcreateserial \
   -out etcd-peer-node3.crt -days 3650 \
   -extensions v3_req -extfile <(echo "
 [ v3_req ]
