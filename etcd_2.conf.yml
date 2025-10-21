@@ -1,0 +1,29 @@
+name: node2
+data-dir: /var/lib/etcd/node2
+snapshot-count: 10000 # через сколько транзакций делать snapshot базы
+heartbeat-interval: 100 # как часто лидер сообщает, что жив
+election-timeout: 1000 # через сколько ждать heartbeat, чтобы переизбрать лидера
+listen-peer-urls: https://127.0.0.2:2382 # Принимает запросы от других node klaster etcd
+listen-client-urls: https://127.0.0.2:2383 # Принимает запросы от клиентов. Пример: kube-api
+initial-advertise-peer-urls: https://127.0.0.2:2382 # какой адрес этого узла будет “рекламироваться” другим узлам кластера
+advertise-client-urls: https://127.0.0.2:2383 # какие адреса этого узла будут “рекламироваться” клиентам
+initial-cluster: "node1=https://127.0.0.1:2380,node2=https://127.0.0.2:2382,node3=https://127.0.0.3:2384" # Когда узел стартует, он знает кого искать для Raft-репликации и heartbeat
+initial-cluster-token: 'etcd-cluster' # Узлы с разными токенами не вступят в один кластер.
+initial-cluster-state: 'new' # сообщает etcd, создаётся новый кластер или узел
+client-transport-security: # для клиентов
+  cert-file: /etc/etcd/ssl/etcd-server.crt # Сертификат сервера для TLS
+  key-file: /etc/etcd/ssl/etcd-server.key # Закрытый ключ сервера
+  client-cert-auth: true # Требовать ли клиентский сертификат
+  trusted-ca-file: /etc/etcd/ssl/ca.crt # CA для проверки клиентских сертификатов
+  auto-tls: false # Автогенерация сертификатов для теста
+peer-transport-security: # для серверов
+  cert-file: /etc/etcd/ssl/etcd-peer-node2.crt
+  key-file: /etc/etcd/ssl/etcd-peer-node2.key
+  trusted-ca-file: /etc/etcd/ssl/ca.crt
+  client-cert-auth: true
+  auto-tls: false
+log-level: debug # Уровень ошибок
+logger: zap # движок для логирования
+log-outputs: [stderr, /var/log/etcd_2.log] # куда писать логи
+auto-compaction-mode: periodic # Автоматическая компактация ключей
+auto-compaction-retention: "1" # сохранять только 1 час/день последних ревизий
